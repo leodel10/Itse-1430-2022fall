@@ -19,9 +19,10 @@ double distanceFromMoon = 0;
 char letterGrade;
 bool isPassing;
 
+
 string firstName = "Bob", lastName = "Smith";
 
-firstName = lastName = "Sam";
+//firstName = lastName = "Sam";
 //firstName = "Sam";
 //lastname = "Sam;
 
@@ -34,9 +35,9 @@ string name;
 
 //block statement *0 or more 
 
-{
-    decimal payRate;
-}
+//{
+//    decimal payRate;
+//}
 
 //distanceFromMoon = 10.5;
 isPassing = distanceFromMoon > 10;
