@@ -44,5 +44,5 @@ void AddMovie ( )
     releaseYear = ReadInt32("Enter the relase year: ");
     rating = ReadString("Enter the MPAA rating: ");
 
-    Console.WriteLine("is this a classic?: ");
+    Console.WriteLine("is this a classic?: "); 
 }
