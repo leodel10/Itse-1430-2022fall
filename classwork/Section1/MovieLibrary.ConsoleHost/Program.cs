@@ -18,7 +18,7 @@ int ReadInt32 ( string message )
     //if (Int32.TryParse(value, out result))
     if (Int32.TryParse(value, out int result)) ;
     return result;
-
+    v
     //TODO loop
     return -1;
 }
