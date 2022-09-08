@@ -1,6 +1,8 @@
 ﻿//Movie Definition 
 string title = "";
 string description = "";
+
+
 int runLegnth = 0;
 int releaseYear = 1900;
 string rating = "";
@@ -8,41 +10,78 @@ bool isClassic = false;
 
 AddMovie();
 
-int ReadInt32 ( string message )
+bool ReadBoolean ( string message )
 {
     Console.Write(message);
 
-    string value = Console.ReadLine();
-    //inline declarations
-    //int result;
-    //if (Int32.TryParse(value, out result))
-    if (Int32.TryParse(value, out int result)) ;
-    return result;
-    v
-    //TODO loop
-    return -1;
+    //looking for Y/N
+    ConsoleKeyInfo key = Console.ReadKey();
+    if (key.Key == ConsoleKey.Y)
+        return true;
+    else if (key.Key == ConsoleKey.N)
+        return false;
+
+        //TODO eror
+        return false;
 }
 
-string ReadString ( string message )
+int ReadInt32 ( string message, int minimumValue, int maximumValue )
 {
     Console.Write(message);
-    string value = Console.ReadLine();
 
-    return value;
+    do 
+    {
+        string value = Console.ReadLine();
+
+        //inline declarations
+        //int result;
+        //if (Int32.TryParse(value, out result))
+        if (Int32.TryParse(value, out int result))
+        {
+            if (result >= minimumValue && result <= maximumValue)
+            return result;
+        };
+
+        //if (false)
+            //break;      //exit loop
+            //continue;     //Exit iteration and goes to next iteretion
+
+        Console.WriteLine("Value must be between " + minimumValue + " and " + maximumValue);
+     } while (true);
+
+   
+}
+
+string ReadString ( string message, bool required )
+{
+    Console.Write(message);
+
+    while (true)
+    {
+
+        string value = Console.ReadLine();
+
+        //if value is not empty or not required 
+        if (value != "" || !required)
+            return value;
+
+        //values is empty and required
+        Console.WriteLine("Value is required");
+    };
 }
 
 void AddMovie ( )
 {
     ////string title = ""
-    title = ReadString("Enter a title: ");
+    title = ReadString("Enter a title: ", true);
 
     //string description = "";
-    description = ReadString("Enter an optional description: ");
+    description = ReadString("Enter an optional description: ", false);
 
-    runLegnth = ReadInt32("Enter the run leghtn (in minutes): ");
+    runLegnth = ReadInt32("Enter the run leghtn (in minutes): ",0, 300);
 
-    releaseYear = ReadInt32("Enter the relase year: ");
-    rating = ReadString("Enter the MPAA rating: ");
+    releaseYear = ReadInt32("Enter the relase year: ", 1900, 2100);
+    rating = ReadString("Enter the MPAA rating: ", true);
 
-    Console.WriteLine("is this a classic?: ");  
+    isClassic = ReadBoolean("Is this a classic?: ");
 }
