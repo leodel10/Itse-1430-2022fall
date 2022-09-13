@@ -55,3 +55,22 @@ Console.WriteLine(y);
 
 Console.WriteLine(y--);
 Console.WriteLine(y);
+
+//STRINGS 
+
+string emptyString = "";
+string emptyString2 = String.Empty;
+bool areEmptyStringsEqual = emptyString == emptyString2;
+string nullString = null; //bad, cause problems / default value of string 
+bool isEmptyString = (emptyString == null) || (emptyString == ""); 
+isEmptyString = String.IsNullOrEmpty(emptyString); //check if null or empty string 
+
+//literal
+string someString = "Hello \"World";
+Console.WriteLine("Hello");
+Console.WriteLine("World");
+Console.WriteLine("hello\nWorld");  //for new line just write console.writeline 
+string filePath = "C:\\windpws\\system32";
+
+//Verbatim
+filePath = @"C:\windpws\system32"  //escape sequences ignored 

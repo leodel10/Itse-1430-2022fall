@@ -2,27 +2,103 @@
 string title = "";
 string description = "";
 
-
 int runLegnth = 0;
 int releaseYear = 1900;
 string rating = "";
 bool isClassic = false;
 
-AddMovie();
+DisplayInformation();
+
+bool done = false;
+do 
+{
+
+    MenuOption input = DisplayMenu();
+    Console.WriteLine();
+    switch (input)
+    {
+         
+        case MenuOption.Add:
+        {
+            AddMovie();
+            break;
+        }
+        case MenuOption.Edit: EditMovie(); break;
+        case MenuOption.View: ViewMovie(); break;
+        case MenuOption.Delete: DeleteMovie(); break;
+        case MenuOption.Quit: done = true; break;
+
+
+    };
+    //if (input == 'A')
+    //    AddMovie();
+    //else if (input == 'E')
+    //    EditMovie();
+    //else if (input == 'V')
+    //    ViewMovie();
+    //else if (input == 'D')
+    //    DeleteMovie();
+    //else if (input == 'Q')
+    //    break;
+} while (!done);
+
+/// Funtions 
+/// 
+
+void DisplayInformation ()
+{
+    Console.WriteLine("Movie Library");
+    Console.WriteLine("ITSE sample");
+    Console.WriteLine("Fall 2022");
+}
+
+MenuOption DisplayMenu()
+{
+    Console.WriteLine();
+    Console.WriteLine("A)dd Movie");
+    Console.WriteLine("E)dit movie");
+    Console.WriteLine("V)iew Movie");
+    Console.WriteLine("D)elete Movie");
+    Console.WriteLine("Q)uit");
+
+    do
+    {
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        switch (key.Key)
+        {
+            case ConsoleKey.A: return MenuOption.Add;
+            case ConsoleKey.E: return MenuOption.Edit;
+            case ConsoleKey.V: return MenuOption.View;
+            case ConsoleKey.D: return MenuOption.Delete;
+            case ConsoleKey.Q: return MenuOption.Quit;
+        };
+           
+        //if (key.Key == ConsoleKey.A)
+        //    return 'A';
+        //else if (key.Key == ConsoleKey.E)
+        //    return 'E';
+        //else if (key.Key == ConsoleKey.V)
+        //    return 'V';
+        //else if (key.Key == ConsoleKey.D)
+        //    return 'D';
+        //else if (key.Key == ConsoleKey.Q)
+        //    return 'Q';
+    } while (true);
+
+}
 
 bool ReadBoolean ( string message )
 {
     Console.Write(message);
 
     //looking for Y/N
-    ConsoleKeyInfo key = Console.ReadKey();
-    if (key.Key == ConsoleKey.Y)
-        return true;
-    else if (key.Key == ConsoleKey.N)
+    do { 
+        ConsoleKeyInfo key = Console.ReadKey();
+        if (key.Key == ConsoleKey.Y)
+            return true;
+        else if (key.Key == ConsoleKey.N)
         return false;
-
-        //TODO eror
-        return false;
+    } while (true);
 }
 
 int ReadInt32 ( string message, int minimumValue, int maximumValue )
@@ -48,8 +124,6 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
 
         Console.WriteLine("Value must be between " + minimumValue + " and " + maximumValue);
      } while (true);
-
-   
 }
 
 string ReadString ( string message, bool required )
@@ -58,7 +132,6 @@ string ReadString ( string message, bool required )
 
     while (true)
     {
-
         string value = Console.ReadLine();
 
         //if value is not empty or not required 
@@ -84,4 +157,37 @@ void AddMovie ( )
     rating = ReadString("Enter the MPAA rating: ", true);
 
     isClassic = ReadBoolean("Is this a classic?: ");
+}
+
+void EditMovie ()
+{ }
+
+void DeleteMovie ()
+{
+    //no movie
+    if (title == "")
+        return;
+
+    //not confirmed
+    if (!ReadBoolean("are you sure you want to delete movie (Y/N)?"))
+        return;
+
+    //todo; delete movie 
+    title = "";
+   
+}
+
+void ViewMovie ()
+{
+    if (title == "")
+    {
+        Console.WriteLine("No movies available");
+        return;
+    };
+    Console.WriteLine(title);
+    Console.WriteLine(releaseYear);
+    Console.WriteLine("Legnth: "+ runLegnth + "mins");
+    Console.WriteLine("MPPA Rating: " + rating);
+    Console.WriteLine("Classic: " + isClassic);
+    Console.WriteLine(description);
 }
