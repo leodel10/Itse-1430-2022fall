@@ -26,25 +26,6 @@ while (input !=0)
     }
 }
 
-    //if (input == 1)
-    //    StartOrder();
-    //else if (input == 2)
-    //    ViewOrder();
-    //else if (input == 3)
-    //    ClearOrder();
-    //else if (input == 4)
-    //    ModifyOrder();
-    //else if (input == 5)
-    //    Quit();
-    //break;
-
-
-
-
-
-
-
-
 
 //Functions 
 
@@ -80,8 +61,6 @@ void DisplayMenu ()
     Console.WriteLine("3.lear Order");
     Console.WriteLine("4.Modify order");
     Console.WriteLine("5.Quit");
-
-
 }
 
 void StartOrder()
@@ -107,17 +86,16 @@ void ModifyOrder ()
 
 void Quit ()
 {
+    
     string choice = "";
 
     Console.WriteLine("Are you sure to exit the program?: Yes/No");
     choice = Console.ReadLine();
-    
-    if (choice == "yes")
-        
 
-
-    return;
- 
-
+    if (choice == "No")
+        DisplayMenu();
+    else if (choice == "")
+        Console.WriteLine("Invalid, please try again");
+    else if (choice == "Yes");
 }
 
