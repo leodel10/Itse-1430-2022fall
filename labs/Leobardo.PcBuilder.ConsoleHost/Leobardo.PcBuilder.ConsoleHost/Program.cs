@@ -96,6 +96,6 @@ void Quit ()
         DisplayMenu();
     else if (choice == "")
         Console.WriteLine("Invalid, please try again");
-    else if (choice == "Yes");
+    else if (choice == "Yes"); 
 }
 
