@@ -1,15 +1,57 @@
 ﻿namespace MovieLibrary
 {
-
     /// <summary>Represents a movie.</summary> 
     public class Movie 
     {
-        public string title = "";
-        public string description = "";
+        private string _title = "";
 
-        public int runLegnth = 0;
-        public int releaseYear = 1900;
-        public string rating = "";
-        public bool isClassic = false;
+       public string GetTitle()
+        {
+            return _title;
+        }
+        public void SetTitle ( string title )
+        {
+            //this._title = title;
+            _title = title;
+        }
+
+        //TODO Hide this
+        public string _description = "";
+
+        public int _runLegnth = 0;
+        public int _releaseYear = 1900;
+        public string _rating = "";
+        public bool _isClassic = false;
+
+        public bool IsBlackAndWhite ()
+        {
+            return _releaseYear < 1939;
+        }
+        /// <summary>Clones the existing movie.</summary>
+        /// <returns>C copy of the movie.</returns>
+        public Movie Clone ()
+        {
+            var movie = new Movie ();
+            CopyTo (movie);
+
+            return movie;
+        }
+
+        /// <summary>Copy the movie to another instance.</summary>
+        /// <param name="movie">Movie to copy into </param>
+        public void CopyTo ( /* Movie this */Movie movie)
+        {
+            var areEqual = _title == this._title;
+            if ( areEqual )
+
+            movie._title = _title;
+            movie._description = _description;
+            movie._runLegnth = _runLegnth;
+            movie._releaseYear = _releaseYear;
+            movie._rating = _rating;
+            movie._isClassic = _isClassic;
+        }
+
     }
+    
 }
