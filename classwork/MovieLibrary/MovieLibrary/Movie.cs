@@ -25,7 +25,7 @@
 
         public bool IsBlackAndWhite ()
         {
-            return _releaseYear < 1939;
+            return _releaseYear < 1939; 
         }
         /// <summary>Clones the existing movie.</summary>
         /// <returns>C copy of the movie.</returns>
