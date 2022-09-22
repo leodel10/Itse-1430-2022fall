@@ -1,7 +1,7 @@
 ﻿//Leobardo Delgado ITSE_2409 
 using System.Data.SqlTypes;
 
-string processorChoice = "";
+//string processorChoice = "";
 string memoryChoice = "";
 
 DisplayInformation();
@@ -11,7 +11,7 @@ while (input !=0)
 {
     DisplayMenu();
     Console.WriteLine();
-    input = Convert.ToInt32(Console.ReadLine());
+    input = Int32.Parse(Console.ReadLine());
 
     if (input > 5 || input <0)
     {
@@ -41,23 +41,6 @@ void DisplayInformation()
     Console.WriteLine("Date");
 }
 
-string ReadString ( string message, bool required )
-{
-    Console.Write(message);
-
-    while (true)
-    {
-        string value = Console.ReadLine();
-
-        //if value is not empty or not required 
-        if (value != "" || !required)
-            return value;
-
-        //values is empty and required
-        Console.WriteLine("Value is required");
-    };
-}
-
 void DisplayMenu ()
 {
     Console.WriteLine();
@@ -72,16 +55,24 @@ void DisplayMenu ()
 
 void StartOrder()
 {
+    var processorChoice = -1;
 
-
+    Processor();
     Console.WriteLine();
     Console.WriteLine("Please choose your preffered processor.");
-    Processor();
-    processorChoice = Console.ReadLine();
+    processorChoice = Int32.Parse(Console.ReadLine());
 
+    //if (processorChoice >6 || processorChoice < 0)
+    //{
+    //    Console.WriteLine("Please enter choice number 1 through 5");
+    //}   
+  
     Console.WriteLine("Please choose your memory storage.");
     Memory();
     memoryChoice = Console.ReadLine();
+
+    Console.WriteLine();
+    //Console.WriteLine("You chose " + processorChoice + "as your processor and " + memoryChoice + "as your memory."); 
 }
 
 void ViewOrder()
@@ -110,7 +101,7 @@ void Quit ()
         DisplayMenu();
     else if (choice == "")
         Console.WriteLine("Invalid, please try again");
-    else if (choice == "Yes");    
+    else if (choice == "Yes") ;
 }
 
 void Processor ()
