@@ -1,8 +1,12 @@
 ﻿//Leobardo Delgado ITSE_2409 
+using System.Data.SqlTypes;
+
+string processorChoice = "";
+string memoryChoice = "";
 
 DisplayInformation();
 
-int input = -1;
+var input = -1;
 while (input !=0)
 {
     DisplayMenu();
@@ -24,6 +28,7 @@ while (input !=0)
         case 5: Quit(); break;
 
     }
+    return;
 }
 
 
@@ -36,25 +41,27 @@ void DisplayInformation()
     Console.WriteLine("Date");
 }
 
-bool ReadBoolean ( string message )
+string ReadString ( string message, bool required )
 {
     Console.Write(message);
 
-    //looking for Y/N
-    do
+    while (true)
     {
-        ConsoleKeyInfo key = Console.ReadKey();
-        if (key.Key == ConsoleKey.Y)
-            return true;
-        else if (key.Key == ConsoleKey.N)
-            return false;
-    } while (true);
+        string value = Console.ReadLine();
+
+        //if value is not empty or not required 
+        if (value != "" || !required)
+            return value;
+
+        //values is empty and required
+        Console.WriteLine("Value is required");
+    };
 }
-
-
 
 void DisplayMenu ()
 {
+    Console.WriteLine();
+    Console.WriteLine("Cart Total: ".PadLeft(18, ' '));
     Console.WriteLine();
     Console.WriteLine("1.Start Order");
     Console.WriteLine("2.View order");
@@ -65,7 +72,16 @@ void DisplayMenu ()
 
 void StartOrder()
 {
-    Console.WriteLine("Start Order has been executed");
+
+
+    Console.WriteLine();
+    Console.WriteLine("Please choose your preffered processor.");
+    Processor();
+    processorChoice = Console.ReadLine();
+
+    Console.WriteLine("Please choose your memory storage.");
+    Memory();
+    memoryChoice = Console.ReadLine();
 }
 
 void ViewOrder()
@@ -83,10 +99,8 @@ void ModifyOrder ()
     Console.WriteLine("Modify Order has been executed");
 }
 
-
 void Quit ()
 {
-    
     string choice = "";
 
     Console.WriteLine("Are you sure to exit the program?: Yes/No");
@@ -96,6 +110,26 @@ void Quit ()
         DisplayMenu();
     else if (choice == "")
         Console.WriteLine("Invalid, please try again");
-    else if (choice == "Yes"); 
+    else if (choice == "Yes");    
 }
 
+void Processor ()
+{
+    Console.WriteLine();
+    Console.WriteLine ("1.AMD Ryzen 9 5900X  Price: $1410");
+    Console.WriteLine ("2.AMD Ryzen 7 5700X  Price: $1270");
+    Console.WriteLine ("3.AMD Ryzen 5 5600X  Price: $1200");
+    Console.WriteLine ("4.Intel i9-12900K    Price: $1590");
+    Console.WriteLine ("5.Intel i7-12700K    Price: $1400");
+    Console.WriteLine ("6.Intel i5-12600K    Price: $1280");
+}
+
+void Memory()
+{
+    Console.WriteLine();
+    Console.WriteLine("1. 8  GB   Price: $30");
+    Console.WriteLine("2. 16 GB  Price: $30");
+    Console.WriteLine("3. 32 GB  Price: $30");
+    Console.WriteLine("4. 64 GB  Price: $30");
+    Console.WriteLine("5. 128 GB  Price: $30");
+}
