@@ -28,8 +28,6 @@ do
         case MenuOption.View: ViewMovie(movie); break;
         case MenuOption.Delete: DeleteMovie(); break;
         case MenuOption.Quit: done = true; break;
-
-
     };
     //if (input == 'A')
     //    AddMovie();
@@ -44,7 +42,6 @@ do
 } while (!done);
 
 /// Funtions 
-/// 
 
 void DisplayInformation ()
 {
@@ -153,17 +150,18 @@ Movie AddMovie ()
 
     ////string title = ""
     //movie.title = ReadString("Enter a title: ", true);
-    movie.SetTitle(ReadString("Enter a title: ", true));
+    //movie.SetTitle(ReadString("Enter a title: ", true));
+    movie.Title = ReadString("Enter a title: ", true);
 
     //string description = "";
-    movie._description = ReadString("Enter an optional description: ", false);
+    movie.Description = ReadString("Enter an optional description: ", false);
 
-    movie._runLegnth = ReadInt32("Enter the run leghtn (in minutes): ",0, 300);
+    movie.RunLegnth = ReadInt32("Enter the run leghtn (in minutes): ",0, 300);
 
-    movie._releaseYear = ReadInt32("Enter the relase year: ", 1900, 2100);
-    movie._rating = ReadString("Enter the MPAA rating: ", true);
+    movie.ReleaseYear = ReadInt32("Enter the relase year: ", 1900, 2100);
+    movie.Rating = ReadString("Enter the MPAA rating: ", true);
 
-    movie._isClassic = ReadBoolean("Is this a classic?: ");
+    movie.IsClassic = ReadBoolean("Is this a classic?: ");
 
     return movie; 
 }
@@ -185,7 +183,7 @@ void DeleteMovie ()
         return;
 
     //not confirmed
-    if (!ReadBoolean($"are you sure you want to delete movie '{selectedMovie.GetTitle}' (Y/N)?"))
+    if (!ReadBoolean($"are you sure you want to delete movie '{selectedMovie.Title}' (Y/N)?"))
         return;
 
     //todo; delete movie 
@@ -212,17 +210,20 @@ void ViewMovie ( Movie movie )
 
     //ToString
     //Console.WriteLine($"{movie.title} ({movie._releaseYear})");
-    Console.WriteLine($"{movie.GetTitle()} ({movie._releaseYear})");
+    Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
     //Console.WriteLine(releaseYear);
     //Console.WriteLine(releaseYear.ToString());
 
     //Console.WriteLine("Legnth: "+ runLegnth + "mins");
     //Console.WriteLine(String.Format("Length: {0} mins", runLegnth));
     //Console.WriteLine("Length: {0} mins", runLegnth);
-    Console.WriteLine($"Length: {movie._runLegnth} mins");
+    Console.WriteLine($"Length: {movie.RunLegnth} mins");
 
-    Console.WriteLine($"Rated: {movie._rating}");
+    Console.WriteLine($"Rated: {movie.Rating}");
     //Console.WriteLine($"This {(isClassic? "Is" : "Is Not")} a Classic: ");
-    Console.WriteLine($"Is Classic: {(movie._isClassic ? "Yes" : "No")}");
-    Console.WriteLine(movie._description);
+    Console.WriteLine($"Is Classic: {(movie.IsClassic ? "Yes" : "No")}");
+    Console.WriteLine(movie.Description);
+
+    var blackAndWhite = movie.IsBlackAndWhite;
+    //movie.IsBlackAndWhite = true;
 }

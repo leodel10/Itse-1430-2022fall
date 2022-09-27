@@ -1,31 +1,73 @@
 ﻿namespace MovieLibrary
 {
     /// <summary>Represents a movie.</summary> 
-    public class Movie 
+    public class Movie
     {
-        private string _title = "";
-
-       public string GetTitle()
+        public int Id { get; private set; }
+        /// <summary> Gets or sets a title. /// </summary>
+        public string Title
         {
-            return _title;
+            // string get_Title ()
+            get 
+             {
+                return string.IsNullOrEmpty(_title) ? "" : _title; 
+               
+             }
+
+            // void set_Title ( string value ) 
+            set { _title = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
-        public void SetTitle ( string title )
+        private string _title;
+
+        //public string GetTitle ()
+        //{
+        //    return _title;
+        //}
+        //public void SetTitle ( string title )
+        //{
+        //    //this._title = title;
+        //    _title = title;
+        //}
+
+        public string Description
         {
-            //this._title = title;
-            _title = title;
+            get { return string.IsNullOrEmpty(_description) ? "" : _description; }
+            set { _description = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
+        private string _description;
 
-        //TODO Hide this
-        public string _description = "";
+        /// <summary> Gets or sets run lenght in minutes /// </summary>
+        //public int RunLegnth
+        //{
+        //    get { return _runLegnth; }
+        //    set { _runLegnth = value; }
+        //}
+        //private int _runLegnth = 0;
+        //autoproperty
+        public int RunLegnth { get; set; }
 
-        public int _runLegnth = 0;
-        public int _releaseYear = 1900;
-        public string _rating = "";
-        public bool _isClassic = false;
 
-        public bool IsBlackAndWhite ()
+        //public int ReleaseYear
+        //{
+        //    get { return _releaseYear; }
+        //    set { _releaseYear = value; }
+        //}
+        //private int _releaseYear = 1900;
+        public int ReleaseYear { get; set; } = 1900;
+        public string Rating
         {
-            return _releaseYear < 1939; 
+            get {  return string.IsNullOrEmpty(_rating) ? "" : _rating; }
+            set { _rating = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+        }
+        private string _rating;
+
+        public bool IsClassic { get; set; }
+
+        //public bool IsBlackAndWhite () { return return _releaseYear < 1939;   }
+        public bool IsBlackAndWhite
+        {
+            get { return ReleaseYear < 1939; }
+            //set { }
         }
         /// <summary>Clones the existing movie.</summary>
         /// <returns>C copy of the movie.</returns>
@@ -41,15 +83,14 @@
         /// <param name="movie">Movie to copy into </param>
         public void CopyTo ( /* Movie this */Movie movie)
         {
-            var areEqual = _title == this._title;
-            if ( areEqual )
+            //var areEqual = _title == this._title;
 
-            movie._title = _title;
-            movie._description = _description;
-            movie._runLegnth = _runLegnth;
-            movie._releaseYear = _releaseYear;
-            movie._rating = _rating;
-            movie._isClassic = _isClassic;
+            movie.Title = Title;
+            movie.Description = Description;    //this,description
+            movie.RunLegnth = RunLegnth;
+            movie.ReleaseYear = ReleaseYear;
+            movie.Rating = Rating;
+            movie.IsClassic = IsClassic;
         }
 
     }
