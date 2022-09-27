@@ -90,7 +90,7 @@
             movie.RunLegnth = RunLegnth;
             movie.ReleaseYear = ReleaseYear;
             movie.Rating = Rating;
-            movie.IsClassic = IsClassic;
+            movie.IsClassic = IsClassic; 
         }
 
     }
