@@ -3,6 +3,34 @@
     /// <summary>Represents a movie.</summary> 
     public class Movie
     {
+
+        public Movie () : this("", "")
+        {
+            //Initialize("", "");
+        }
+
+        //constructor changing 
+        public Movie( string title ) : this(title, "")
+        {
+            //initializer that field initializers cannot do 
+            //Title=title;  // set title property to whatever title they agve 
+            //Initialize(title, "");
+        }
+
+        public Movie ( string title, string description )
+        {
+           
+            Title = title;
+            Description = description;
+        }
+        //dont do this 
+        //private void Initialize (string title, description )
+        //{
+        //    Title = title;
+        //    Description = description;
+        //}
+
+
         public int Id { get; private set; }
         /// <summary> Gets or sets a title. /// </summary>
         public string Title
@@ -66,14 +94,22 @@
         //public bool IsBlackAndWhite () { return return _releaseYear < 1939;   }
         public bool IsBlackAndWhite
         {
-            get { return ReleaseYear < 1939; }
+            get { return ReleaseYear < YearColorWasIntroduced; }
             //set { }
         }
+
+        //public fields are allowed when they arw constanta
+        public const int YearColorWasIntroduced = 1939;         //field 
+        //public readonly Movie Empty = new Movie();
+
+        //private Movie EmptyMovie { get; } = newMovie();
+        //private readonly Movie _EmptyMovie = 
+
         /// <summary>Clones the existing movie.</summary>
         /// <returns>C copy of the movie.</returns>
         public Movie Clone ()
         {
-            var movie = new Movie ();
+            var movie = new Movie ("Title");
             CopyTo (movie);
 
             return movie;
@@ -92,7 +128,13 @@
             movie.Rating = Rating;
             movie.IsClassic = IsClassic; 
         }
-
+        
+        //Equals & GetHashCodes
+        //GetType
+        public override string ToString ()
+        {
+            return Title;
+        }
     }
     
 }
