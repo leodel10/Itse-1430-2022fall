@@ -246,3 +246,71 @@ void ViewMovie ( Movie movie )
     var blackAndWhite = movie.IsBlackAndWhite;
     //movie.IsBlackAndWhite = true;
 }
+
+void DisplayObject ( object sender )
+{
+    int intValue = 10;
+    //Type Casting & checking 
+    //type checking 
+    //1. C-Style Cast  (Type)Expression
+    //    Must be a valid cast 
+    //    Blows up at runtime if fails 
+    string str = (string)sender;
+    //string (string)intValue;
+
+    //2. Type checkning using is  ::= Expression is T
+    //    True id valid or false otherwise
+    //    Not valid on primitives(other than string)
+    if(sender is string)
+    {
+        //do something
+        str = (string)sender;
+    }
+
+    //preferable 
+    //3. Sate Type cast using as ::= Exprss as T
+    //     Converts to T if valid or null otherwise 
+    //     Doesn't work with primitives (except string)
+    str = sender as string;
+    if (str != null) { };
+
+    //4. Pattern matching ::= Exp is Type  id  
+    //      Assigns typed E to id  and returns true
+    //      works with any type 
+    if (sender is string str1)
+    {
+
+    };
+
+    //5. Convert.ChangeType - DONT USE THIS 
+
+    //NUL
+    //      default value for class types
+    //      Member access crashes if instace is null 
+    //1. == or != null
+    //2. conditional operatr
+    //str.ToString();
+    if (str != null)
+    {
+        var str2 = str.ToString();
+    }
+
+    var str3 = (str != null) ? str.ToString() : "";
+
+    //3. Null coalescing ::= E ?? E
+    str3 = str ?? "";   // str ?? str3 ?? "";
+
+    //4. Null conditonal  ::= instance?.member
+    //      (str != null ? str.ToString() : null;
+    str3 = str?.ToString();
+
+
+    Movie m1 = new Movie(), m2 = new Movie();
+    var areEqual = m1 == m2;
+
+    //Point pt1 = new Point(10, 10);
+    //Point pt2 = new Point(10, 10);
+    //areEqual = pt1 == pt2;
+        
+
+    }

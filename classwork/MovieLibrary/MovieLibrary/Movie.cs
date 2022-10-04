@@ -10,6 +10,7 @@
         }
 
         //constructor changing 
+        //Allows for calling another constructor type 
         public Movie( string title ) : this(title, "")
         {
             //initializer that field initializers cannot do 
@@ -17,7 +18,7 @@
             //Initialize(title, "");
         }
 
-        public Movie ( string title, string description )
+        public Movie ( string title, string description )  :base() //Object.ctor()    
         {
            
             Title = title;
@@ -38,12 +39,14 @@
             // string get_Title ()
             get 
              {
-                return string.IsNullOrEmpty(_title) ? "" : _title; 
+                //return string.IsNullOrEmpty(_title) ? "" : _title;        //same
+                return _title ?? "";                                        //same 
                
              }
 
             // void set_Title ( string value ) 
-            set { _title = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            //set { _title = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            set { _title = value?.Trim() ?? ""; }
         }
         private string _title;
 
@@ -59,8 +62,11 @@
 
         public string Description
         {
-            get { return string.IsNullOrEmpty(_description) ? "" : _description; }
-            set { _description = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            //get { return string.IsNullOrEmpty(_description) ? "" : _description; }
+            get { return _description ?? ""; }
+            
+            //set { _description = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            set { _description = value?.Trim() ?? ""; }
         }
         private string _description;
 
@@ -84,8 +90,10 @@
         public int ReleaseYear { get; set; } = 1900;
         public string Rating
         {
-            get {  return string.IsNullOrEmpty(_rating) ? "" : _rating; }
-            set { _rating = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            //get {  return string.IsNullOrEmpty(_rating) ? "" : _rating; }
+            get {  return _rating ?? ""; }
+            //set { _rating = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
+            set { _rating = value?.Trim() ?? ""; }
         }
         private string _rating;
 
@@ -133,6 +141,9 @@
         //GetType
         public override string ToString ()
         {
+            
+            //ToString == this.ToString():
+            var str = base.ToString ();       //calls bae type impl
             return Title;
         }
     }
