@@ -250,7 +250,7 @@ void ViewMovie ( Movie movie )
 void DisplayObject ( object sender )
 {
     int intValue = 10;
-    //Type Casting & checking 
+    //TYPE CASTING AND TYPE CHECKING 
     //type checking 
     //1. C-Style Cast  (Type)Expression
     //    Must be a valid cast 
@@ -258,7 +258,7 @@ void DisplayObject ( object sender )
     string str = (string)sender;
     //string (string)intValue;
 
-    //2. Type checkning using is  ::= Expression is T
+    ////2. Type checkning using is  ::= Expression is T
     //    True id valid or false otherwise
     //    Not valid on primitives(other than string)
     if(sender is string)
@@ -268,7 +268,7 @@ void DisplayObject ( object sender )
     }
 
     //preferable 
-    //3. Sate Type cast using as ::= Exprss as T
+    ////3. Sate Type cast using as ::= Exprss as T
     //     Converts to T if valid or null otherwise 
     //     Doesn't work with primitives (except string)
     str = sender as string;

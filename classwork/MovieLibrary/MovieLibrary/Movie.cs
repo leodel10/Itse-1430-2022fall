@@ -5,66 +5,35 @@
     {
 
         public Movie () : this("", "")
-        {
-            //Initialize("", "");
-        }
+        { }
 
         //constructor changing 
         //Allows for calling another constructor type 
         public Movie( string title ) : this(title, "")
-        {
-            //initializer that field initializers cannot do 
-            //Title=title;  // set title property to whatever title they agve 
-            //Initialize(title, "");
-        }
+        {}
 
         public Movie ( string title, string description )  :base() //Object.ctor()    
         {
-           
             Title = title;
             Description = description;
         }
-        //dont do this 
-        //private void Initialize (string title, description )
-        //{
-        //    Title = title;
-        //    Description = description;
-        //}
-
 
         public int Id { get; private set; }
         /// <summary> Gets or sets a title. /// </summary>
         public string Title
         {
-            // string get_Title ()
             get 
              {
-                //return string.IsNullOrEmpty(_title) ? "" : _title;        //same
                 return _title ?? "";                                        //same 
-               
              }
-
-            // void set_Title ( string value ) 
-            //set { _title = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
             set { _title = value?.Trim() ?? ""; }
         }
         private string _title;
-
-        //public string GetTitle ()
-        //{
-        //    return _title;
-        //}
-        //public void SetTitle ( string title )
-        //{
-        //    //this._title = title;
-        //    _title = title;
-        //}
 
         public string Description
         {
             //get { return string.IsNullOrEmpty(_description) ? "" : _description; }
             get { return _description ?? ""; }
-            
             //set { _description = string.IsNullOrEmpty(value) ? "" : value.Trim(); }
             set { _description = value?.Trim() ?? ""; }
         }
@@ -80,13 +49,6 @@
         //autoproperty
         public int RunLegnth { get; set; }
 
-
-        //public int ReleaseYear
-        //{
-        //    get { return _releaseYear; }
-        //    set { _releaseYear = value; }
-        //}
-        //private int _releaseYear = 1900;
         public int ReleaseYear { get; set; } = 1900;
         public string Rating
         {
@@ -103,15 +65,8 @@
         public bool IsBlackAndWhite
         {
             get { return ReleaseYear < YearColorWasIntroduced; }
-            //set { }
         }
-
-        //public fields are allowed when they arw constanta
         public const int YearColorWasIntroduced = 1939;         //field 
-        //public readonly Movie Empty = new Movie();
-
-        //private Movie EmptyMovie { get; } = newMovie();
-        //private readonly Movie _EmptyMovie = 
 
         /// <summary>Clones the existing movie.</summary>
         /// <returns>C copy of the movie.</returns>
@@ -127,7 +82,6 @@
         /// <param name="movie">Movie to copy into </param>
         public void CopyTo ( /* Movie this */Movie movie)
         {
-            //var areEqual = _title == this._title;
 
             movie.Title = Title;
             movie.Description = Description;    //this,description
@@ -141,11 +95,8 @@
         //GetType
         public override string ToString ()
         {
-            
-            //ToString == this.ToString():
             var str = base.ToString ();       //calls bae type impl
             return Title;
         }
     }
-    
 }
