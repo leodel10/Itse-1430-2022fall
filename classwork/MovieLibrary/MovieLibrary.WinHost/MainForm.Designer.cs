@@ -38,6 +38,8 @@
             this._miMovieDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this._lstMovies = new System.Windows.Forms.ListBox();
+            this.moviesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this._mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +65,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._miFileExit});
+            this._miFileExit,
+            this.moviesToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -118,14 +121,30 @@
             // 
             this._miHelpAbout.Name = "_miHelpAbout";
             this._miHelpAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this._miHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this._miHelpAbout.Size = new System.Drawing.Size(126, 22);
             this._miHelpAbout.Text = "&About";
+            // 
+            // _lstMovies
+            // 
+            this._lstMovies.FormattingEnabled = true;
+            this._lstMovies.ItemHeight = 15;
+            this._lstMovies.Location = new System.Drawing.Point(12, 27);
+            this._lstMovies.Name = "_lstMovies";
+            this._lstMovies.Size = new System.Drawing.Size(776, 394);
+            this._lstMovies.TabIndex = 1;
+            // 
+            // moviesToolStripMenuItem1
+            // 
+            this.moviesToolStripMenuItem1.Name = "moviesToolStripMenuItem1";
+            this.moviesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.moviesToolStripMenuItem1.Text = "&Movies";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._lstMovies);
             this.Controls.Add(this._mainMenu);
             this.MainMenuStrip = this._mainMenu;
             this.Name = "MainForm";
@@ -149,5 +168,7 @@
         private ToolStripMenuItem _miMovieDelete;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem _miHelpAbout;
+        private ListBox _lstMovies;
+        private ToolStripMenuItem moviesToolStripMenuItem1;
     }
 }
