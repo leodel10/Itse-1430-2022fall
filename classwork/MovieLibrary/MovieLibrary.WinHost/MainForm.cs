@@ -17,8 +17,43 @@ namespace MovieLibrary.WinHost
             //child.Show();
 
             //TODO save this off 
-            var movie = child.SelectedMovie;
+             _movie = child.SelectedMovie;
+            UpdateUI();
         }
+
+        private Movie _movie;
+
+        protected override void OnFormClosing (FormClosingEventArgs e)
+        {
+            base.OnFormClosing (e);
+
+            if (Confirm("Are you sure you want to leave?", "Close"))
+                return;
+
+            //stop the event 
+            e.Cancel = true;
+
+        }
+
+        protected override void  OnFormClosed ( FormClosedEventArgs e)
+        {
+            base.OnFormClosed( e );
+        }
+  
+        private void UpdateUI()
+        {
+            _lstMovies.Items.Clear();
+            if (_movie != null)
+            {
+                _lstMovies.Items.Add(_movie);
+            }
+        }
+
+        private Movie GetSelectedMovie()
+        {
+            return _movie;
+        }
+
 
         private bool Confirm ( string message, string title )
         {
@@ -31,14 +66,39 @@ namespace MovieLibrary.WinHost
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-
-        private void deleteToolStripMenuItem_Click ( object sender, EventArgs e )
+        private void OnMovieDelete ( object sender, EventArgs e )
         {
-            if (!Confirm("Are you sure you want to delete the movie", "Delete"))
+            var movie = GetSelectedMovie();
+            if (movie == null)
+                return;
+
+
+            if (!Confirm($"Are you sure you want to delete the movie '{movie.Title}'?", "Delete"))
                 return;
 
             //todo
-            DisplayError("Not implemented yet", "Delete");
+            _movie = null;
+            UpdateUI();
+        }
+
+        private void OnMovieEdit ( object sender, EventArgs e )
+        {
+            var movie = GetSelectedMovie();
+            if (movie == null)
+                return;
+
+            var child = new MovieForm();
+            child.SelectedMovie = movie;
+
+
+            //Showing form modally
+            if (child.ShowDialog() != DialogResult.OK)
+                return;
+            //child.Show();
+
+            //TODO save this off 
+            _movie = child.SelectedMovie;
+            UpdateUI();
         }
     }
 

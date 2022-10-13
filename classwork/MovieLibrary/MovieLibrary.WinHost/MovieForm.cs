@@ -20,6 +20,24 @@ namespace MovieLibrary.WinHost
         /// <summary> Gets or sets the movie being edited </summary>
         public Movie SelectedMovie { get; set; }
 
+        protected override void OnLoad (EventArgs e )
+        {
+            base.OnLoad(e);
+
+            //Do any init jst before UI is rendered
+            if(SelectedMovie != null)
+            {
+                //Load UI
+                _txtTitle.Text = SelectedMovie.Title;
+                _txtDescription.Text = SelectedMovie.Description;
+                _cbRating.Text = SelectedMovie.Rating;
+
+                _chkIsClassic.Checked = SelectedMovie.IsClassic;
+                _txtRunLegnth.Text = SelectedMovie.RunLegnth.ToString();
+                _txtReleaseYear.Text = SelectedMovie.ReleaseYear.ToString();
+            };
+        }
+
         private void Onsave ( object sender, EventArgs e )
         {
             //TODO add validation 
@@ -32,27 +50,9 @@ namespace MovieLibrary.WinHost
             movie.RunLegnth = GetInt32(_txtRunLegnth);
             movie.ReleaseYear = GetInt32(_txtReleaseYear);
 
-            if (movie.Title.Length == 0)
+            if (!movie.Validate(out var error))
             {
-                DisplayError("Title is required", "Save");
-                return;
-            };
-
-            if (movie.Rating.Length == 0)
-            {
-                DisplayError("Rating is required", "Save");
-                    return;
-            };
-
-            if (movie.RunLegnth < 0)
-            {
-                DisplayError("RunLegnth must be >=0", "Save");
-                return;
-            };
-
-            if (movie.ReleaseYear < 1900)
-            {
-                DisplayError("Release Year must be >=1900", "Save");
+                DisplayError(error, "Save");
                 return;
             };
 

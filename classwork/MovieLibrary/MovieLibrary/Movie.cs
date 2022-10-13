@@ -91,6 +91,38 @@
             movie.IsClassic = IsClassic; 
         }
         
+
+        public bool Validate ( out string errorMessage)
+        {
+            if (Title.Length == 0)
+            {
+                errorMessage = "Title is required";
+                return false;
+            };
+
+            if (Rating.Length == 0)
+            {
+                errorMessage = "Rating is required";
+                return false;
+            };
+
+            if (RunLegnth <= 0)
+            {
+                errorMessage = "RunLegnth must be > 0";
+                return false;
+            };
+
+            if (ReleaseYear < 1900)
+            {
+                errorMessage = "Release Year must be >=1900";
+                return false;
+            };
+
+            errorMessage = null;
+            return true;
+
+
+        }
         //Equals & GetHashCodes
         //GetType
         public override string ToString ()
