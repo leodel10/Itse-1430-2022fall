@@ -7,6 +7,8 @@ using MovieLibrary;
 
 DisplayInformation();
 Movie movie = null;
+MovieDatabase database = new MovieDatabase();
+
 //bool done = false;
 var done = false;
 do 
@@ -28,8 +30,6 @@ do
         case MenuOption.View: ViewMovie(movie); break;
         case MenuOption.Delete: DeleteMovie(); break;
         case MenuOption.Quit: done = true; break;
-
-
     };
     //if (input == 'A')
     //    AddMovie();
@@ -44,7 +44,6 @@ do
 } while (!done);
 
 /// Funtions 
-/// 
 
 void DisplayInformation ()
 {
@@ -122,6 +121,8 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
             return result;
         };
 
+
+
         //if (false)
             //break;      //exit loop
             //continue;     //Exit iteration and goes to next iteretion
@@ -149,27 +150,43 @@ string ReadString ( string message, bool required )
 
 Movie AddMovie ()
 {
-    Movie movie = new Movie ();
+    Movie movie = new Movie("Title");
+    //movie = new Movie():
+    //movie.Title = "Title"
 
     ////string title = ""
     //movie.title = ReadString("Enter a title: ", true);
-    movie.SetTitle(ReadString("Enter a title: ", true));
+    //movie.SetTitle(ReadString("Enter a title: ", true));
+    movie.Title = ReadString("Enter a title: ", true);
 
     //string description = "";
-    movie._description = ReadString("Enter an optional description: ", false);
+    movie.Description = ReadString("Enter an optional description: ", false);
 
-    movie._runLegnth = ReadInt32("Enter the run leghtn (in minutes): ",0, 300);
+    movie.RunLegnth = ReadInt32("Enter the run leghtn (in minutes): ",0, 300);
 
-    movie._releaseYear = ReadInt32("Enter the relase year: ", 1900, 2100);
-    movie._rating = ReadString("Enter the MPAA rating: ", true);
+    movie.ReleaseYear = ReadInt32("Enter the relase year: ", 1900, 2100);
+    if (movie.ReleaseYear >= Movie.YearColorWasIntroduced)
+        Console.WriteLine("Wow that is an old movie");
 
-    movie._isClassic = ReadBoolean("Is this a classic?: ");
+    //var emptyMovie = Movie.Empty;
+
+    movie.Rating = ReadString("Enter the MPAA rating: ", true);
+
+    movie.IsClassic = ReadBoolean("Is this a classic?: ");
 
     return movie; 
 }
 
 Movie GetSelectedMovie()
 {
+    //HACK: for now 
+    var item = database.Get(0);
+
+    //object obj = "Hello";
+    //obj = 10;
+    //obj = 4.15;
+    //obj.ToString();
+
     return movie;
 }
 
@@ -185,7 +202,7 @@ void DeleteMovie ()
         return;
 
     //not confirmed
-    if (!ReadBoolean($"are you sure you want to delete movie '{selectedMovie.GetTitle}' (Y/N)?"))
+    if (!ReadBoolean($"are you sure you want to delete movie '{selectedMovie.Title}' (Y/N)?"))
         return;
 
     //todo; delete movie 
@@ -212,17 +229,88 @@ void ViewMovie ( Movie movie )
 
     //ToString
     //Console.WriteLine($"{movie.title} ({movie._releaseYear})");
-    Console.WriteLine($"{movie.GetTitle()} ({movie._releaseYear})");
+    Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
     //Console.WriteLine(releaseYear);
     //Console.WriteLine(releaseYear.ToString());
 
     //Console.WriteLine("Legnth: "+ runLegnth + "mins");
     //Console.WriteLine(String.Format("Length: {0} mins", runLegnth));
     //Console.WriteLine("Length: {0} mins", runLegnth);
-    Console.WriteLine($"Length: {movie._runLegnth} mins");
+    Console.WriteLine($"Length: {movie.RunLegnth} mins");
 
-    Console.WriteLine($"Rated: {movie._rating}");
+    Console.WriteLine($"Rated: {movie.Rating}");
     //Console.WriteLine($"This {(isClassic? "Is" : "Is Not")} a Classic: ");
-    Console.WriteLine($"Is Classic: {(movie._isClassic ? "Yes" : "No")}");
-    Console.WriteLine(movie._description);
+    Console.WriteLine($"Is Classic: {(movie.IsClassic ? "Yes" : "No")}");
+    Console.WriteLine(movie.Description);
+
+    var blackAndWhite = movie.IsBlackAndWhite;
+    //movie.IsBlackAndWhite = true;
 }
+
+void DisplayObject ( object sender )
+{
+    int intValue = 10;
+    //TYPE CASTING AND TYPE CHECKING 
+    //type checking 
+    //1. C-Style Cast  (Type)Expression
+    //    Must be a valid cast 
+    //    Blows up at runtime if fails 
+    string str = (string)sender;
+    //string (string)intValue;
+
+    ////2. Type checkning using is  ::= Expression is T
+    //    True id valid or false otherwise
+    //    Not valid on primitives(other than string)
+    if(sender is string)
+    {
+        //do something
+        str = (string)sender;
+    }
+
+    //preferable 
+    ////3. Sate Type cast using as ::= Exprss as T
+    //     Converts to T if valid or null otherwise 
+    //     Doesn't work with primitives (except string)
+    str = sender as string;
+    if (str != null) { };
+
+    //4. Pattern matching ::= Exp is Type  id  
+    //      Assigns typed E to id  and returns true
+    //      works with any type 
+    if (sender is string str1)
+    {
+
+    };
+
+    //5. Convert.ChangeType - DONT USE THIS 
+
+    //NUL
+    //      default value for class types
+    //      Member access crashes if instace is null 
+    //1. == or != null
+    //2. conditional operatr
+    //str.ToString();
+    if (str != null)
+    {
+        var str2 = str.ToString();
+    }
+
+    var str3 = (str != null) ? str.ToString() : "";
+
+    //3. Null coalescing ::= E ?? E
+    str3 = str ?? "";   // str ?? str3 ?? "";
+
+    //4. Null conditonal  ::= instance?.member
+    //      (str != null ? str.ToString() : null;
+    str3 = str?.ToString();
+
+
+    Movie m1 = new Movie(), m2 = new Movie();
+    var areEqual = m1 == m2;
+
+    //Point pt1 = new Point(10, 10);
+    //Point pt2 = new Point(10, 10);
+    //areEqual = pt1 == pt2;
+        
+
+    }

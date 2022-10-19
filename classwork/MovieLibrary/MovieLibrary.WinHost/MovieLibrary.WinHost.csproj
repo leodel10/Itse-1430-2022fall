@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>Leo Delgado</Authors>
+    <Product>Movie Library </Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieLibrary\MovieLibrary.csproj" />
+  </ItemGroup>
+
+</Project>
