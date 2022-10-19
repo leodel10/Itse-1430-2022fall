@@ -89,25 +89,3 @@ void Quit ()
 
 
 }
-//while (choice != -1)
-//{
-//    DisplayMenu();
-//    Console.WriteLine();
-//    choice = int.Parse(Console.ReadLine());
-
-//;    if (choice > 6 || choice < 0)
-//    {
-//        Console.WriteLine("Invalid entry. Please select 1-5");
-//        continue;
-//    }
-
-//    switch(choice)
-//    {
-//        case 1: CreateCharacter(); break;
-//        case 2: AddCharacter(); break;
-//        case 3: ViewCharacter(); break;
-//        case 4: EditCharacter(); break;
-//        case 5: DeleteCharacter(); break;
-//        case 6: break;
-//    }
-//}
