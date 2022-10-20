@@ -54,27 +54,27 @@ MenuOption DisplayMenu()
 
 void CreateCharacter()
 {
-    Console.WriteLine("Hello");
+    Console.WriteLine("Create Character");
 }
 
 void AddCharacter()
 {
-    Console.WriteLine("Add");
+    Console.WriteLine("Add Character");
 }
 
 void ViewCharacter()
 {
-    Console.WriteLine("View");
+    Console.WriteLine("View character");
 }
 
 void EditCharacter()
 {
-    Console.WriteLine("Edit");
+    Console.WriteLine("Edit character");
 }
 
 void DeleteCharacter()
 {
-    Console.WriteLine("Delete");
+    Console.WriteLine("Delete character");
 }
 
 void Quit ()

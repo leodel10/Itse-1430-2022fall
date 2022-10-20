@@ -2,6 +2,11 @@
 {
     public class Character
     {
+        public class AvailableCharacter
+        {
+
+        }
+
 
     }
 }
