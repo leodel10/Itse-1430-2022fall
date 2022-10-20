@@ -4,7 +4,7 @@ namespace MovieLibrary.WinHost
     {
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void OnMovieAdd ( object sender, EventArgs e )
