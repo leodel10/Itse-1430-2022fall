@@ -22,6 +22,7 @@ namespace MovieLibrary.WinHost
         }
 
         private Movie _movie;
+        private MovieDatabase _movies = new MovieDatabase();
 
         protected override void OnFormClosing (FormClosingEventArgs e)
         {
@@ -42,11 +43,20 @@ namespace MovieLibrary.WinHost
   
         private void UpdateUI()
         {
+            //Get movies 
+            var movies = _movies.GetAll();
+            //movies[0] = new Movie();
+            movies[0].Title = "New Movie";
+
             _lstMovies.Items.Clear();
-            if (_movie != null)
-            {
-                _lstMovies.Items.Add(_movie);
-            }
+            _lstMovies.Items.AddRange(movies);
+
+
+            //_lstMovies.Items.Clear();
+            //if (_movie != null)
+            //{
+            //    _lstMovies.Items.Add(_movie);
+            //};
         }
 
         private Movie GetSelectedMovie()

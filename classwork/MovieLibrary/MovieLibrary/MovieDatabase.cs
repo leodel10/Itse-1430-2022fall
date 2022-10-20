@@ -10,6 +10,7 @@ namespace MovieLibrary
     {
         public virtual Movie add ( Movie movie )
         {
+            var numberOfElements = _movies.Length;
             _movie = movie;
             return movie;
         }
@@ -21,8 +22,21 @@ namespace MovieLibrary
             return null;
         }
 
-        private Movie _movie;
+        public Movie[] GetAll()
+        {
+            //TODO: Filter out null 
+            var items = new Movie[_movies.Length];
+            for (var index = 0; index < _movies.Length; ++index)
+                items[index] = _movies[index]?.Clone();
 
+            //Empty array
+            //new Movie[0];
+
+            return items;
+        }
+
+        private Movie _movie;
+        private Movie[] _movies = new Movie[100];
 
 
     }
