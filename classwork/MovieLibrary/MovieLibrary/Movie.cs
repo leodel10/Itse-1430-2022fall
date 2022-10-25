@@ -18,7 +18,7 @@
             Description = description;
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         /// <summary> Gets or sets a title. /// </summary>
         public string Title
         {
@@ -82,7 +82,7 @@
         /// <param name="movie">Movie to copy into </param>
         public void CopyTo ( /* Movie this */Movie movie)
         {
-
+            movie.Id = Id;
             movie.Title = Title;
             movie.Description = Description;    //this,description
             movie.RunLegnth = RunLegnth;

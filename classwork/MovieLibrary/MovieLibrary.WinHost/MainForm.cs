@@ -10,15 +10,22 @@ namespace MovieLibrary.WinHost
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             var child = new MovieForm();
+            do
+            {
+                //Showing form modally
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                //child.Show();
 
-            //Showing form modally
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-            //child.Show();
+                //TODO save this off 
+                if (_movies.Add(child.SelectedMovie, out var error) != null)
+                {
+                    UpdateUI();
+                    return;
+                };
 
-            //TODO save this off 
-             _movie = child.SelectedMovie;
-            UpdateUI();
+                DisplayError(error, "Add Failed");
+            } while (true);
         }
 
         private Movie _movie;
@@ -45,8 +52,6 @@ namespace MovieLibrary.WinHost
         {
             //Get movies 
             var movies = _movies.GetAll();
-            //movies[0] = new Movie();
-            movies[0].Title = "New Movie";
 
             _lstMovies.Items.Clear();
             _lstMovies.Items.AddRange(movies);
@@ -87,7 +92,8 @@ namespace MovieLibrary.WinHost
                 return;
 
             //todo
-            _movie = null;
+
+            _movies.Remove(movie.Id);
             UpdateUI();
         }
 
@@ -102,13 +108,19 @@ namespace MovieLibrary.WinHost
 
 
             //Showing form modally
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-            //child.Show();
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //TODO save this off 
-            _movie = child.SelectedMovie;
-            UpdateUI();
+                if (_movies.Update(movie.Id, child.SelectedMovie, out var error))
+                {
+                    UpdateUI();
+                    return;
+                };
+
+                DisplayError(error, "Update failed");
+            } while (true);
         }
 
         private void OnFileExit ( object sender, EventArgs e )
