@@ -1,7 +1,9 @@
-﻿namespace MovieLibrary
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MovieLibrary
 {
     /// <summary>Represents a movie.</summary> 
-    public class Movie
+    public class Movie : IValidatableObject
     {
 
         public Movie () : this("", "")
@@ -92,37 +94,7 @@
         }
         
 
-        public bool Validate ( out string errorMessage)
-        {
-            if (Title.Length == 0)
-            {
-                errorMessage = "Title is required";
-                return false;
-            };
-
-            if (Rating.Length == 0)
-            {
-                errorMessage = "Rating is required";
-                return false;
-            };
-
-            if (RunLegnth <= 0)
-            {
-                errorMessage = "RunLegnth must be > 0";
-                return false;
-            };
-
-            if (ReleaseYear < 1900)
-            {
-                errorMessage = "Release Year must be >=1900";
-                return false;
-            };
-
-            errorMessage = null;
-            return true;
-
-
-        }
+ 
         //Equals & GetHashCodes
         //GetType
         public override string ToString ()
@@ -130,5 +102,32 @@
             var str = base.ToString ();       //calls bae type impl
             return Title;
         }
+
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext ) 
+        {
+            var errors = new List<ValidationResult> ();
+
+            if (Title.Length == 0)
+                errors.Add(new ValidationResult("Title is required", new[] { nameof(Title) }));
+
+            if (Rating .Length == 0)
+     
+                errors.Add(new ValidationResult("Rating is required", new[] { nameof(Rating) }));
+                
+       
+            if (RunLegnth <= 0)
+        
+                errors.Add(new ValidationResult("Run Length is required", new[] { nameof(RunLegnth) }));
+         
+
+            if (ReleaseYear < 1900)
+
+                errors.Add(new ValidationResult("Release Years is required", new[] { nameof(ReleaseYear) }));
+
+
+            return errors;
+
+        }
     }
 }
+

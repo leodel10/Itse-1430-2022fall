@@ -48,6 +48,11 @@ namespace MovieLibrary.WinHost
             base.OnFormClosed( e );
         }
   
+        protected override void OnLoad ( EventArgs e)
+        {
+            base.OnLoad ( e );  
+            UpdateUI();
+        }
         private void UpdateUI()
         {
             //Get movies 
@@ -66,7 +71,7 @@ namespace MovieLibrary.WinHost
 
         private Movie GetSelectedMovie()
         {
-            return _movie;
+            return _lstMovies.SelectedItem as Movie;
         }
 
 
