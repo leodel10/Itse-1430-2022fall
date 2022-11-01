@@ -28,8 +28,7 @@ namespace MovieLibrary.WinHost
             } while (true);
         }
 
-        private Movie _movie;
-        private MovieDatabase _movies = new MovieDatabase();
+   
 
         protected override void OnFormClosing (FormClosingEventArgs e)
         {
@@ -59,7 +58,9 @@ namespace MovieLibrary.WinHost
             var movies = _movies.GetAll();
 
             _lstMovies.Items.Clear();
-            _lstMovies.Items.AddRange(movies);
+            //_lstMovies.Items.AddRange(movies);
+            foreach(var movie in movies)
+                _lstMovies.Items.Add(movie);
 
 
             //_lstMovies.Items.Clear();
@@ -139,6 +140,7 @@ namespace MovieLibrary.WinHost
 
             about.ShowDialog();
         }
+        //private Movie _movie;
+        private IMovieDatabase _movies = new Memory.MemoryMovieDatabase();
     }
-
 }

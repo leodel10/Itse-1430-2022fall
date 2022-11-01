@@ -7,67 +7,12 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary
 {
-    public class MovieDatabase
+    public abstract class MovieDatabase : IMovieDatabase
     {
-        public MovieDatabase ()
+
+        public Movie Add ( Movie movie, out string errorMessage )
         {
-            //var movies = new Movie[3];
-
-            //Object initializer syntax
-            //new Movie("Jaws", "PG");
-            //var movie = new Movie();
-            //movie.Title = "Jaws";
-            //movie.Rating = "PG";
-            //movie.RunLegnth = 210;
-            //movie.ReleaseYear = 1977;
-            //movie.Description = "Shark eats people";
-            //movie.IsClassic = true;
-            //Add(movie, out var error);  //movies[0] for var
-            var movie = new Movie() {
-                Title = "Jaws",
-                Rating = "PG",
-                RunLegnth = 210,
-                ReleaseYear = 1977,
-                Description = "Shark eats people",
-                IsClassic = true,
-            };
-            Add(movie, out var error);
-
-            movie = new Movie() {
-                Title = "Jaws 2",
-                Rating = "PG-13",
-                RunLegnth = 220,
-                ReleaseYear = 1985,
-                Description = "Shark eats people...again",
-            };
-            Add(movie, out error);
-
-            movie = new Movie() {
-            Title = "Ice Age",
-            Rating = "G",
-            RunLegnth = 210,
-            ReleaseYear = 2002,
-            Description = "Ice age happens",
-            IsClassic = true,
-            };
-            Add(movie, out error);
-
-
-
-
-        }
-
-        public virtual Movie Add ( Movie movie, out string errorMessage )
-        {
-            //ARRAY
-            //Find first null elemtn
-            //if found then set to new movie
-            //else
-            //  resize the array 
-            //copy all existing elements over
-            //set 'oldarray.Length' to new movie 
-
-            //var numberOfElements = _movies.Length;
+            
 
             //Validate movie
             if (movie == null)
@@ -89,63 +34,86 @@ namespace MovieLibrary
                 return null;
             };
 
-           
+
             //add
-            movie.Id = _id++;
-            _movies.Add(movie.Clone());
+            movie = AddCore(movie);
+            //movie.Id = _id++;
+            //_movies.Add(movie.Clone());
 
             errorMessage = null;
             return movie;
         }
 
+        protected abstract Movie AddCore ( Movie movie );
+
         public Movie Get ( int id )
         {
-
+            if (id <= 0)
+                return null;
             //enumarate array looking for match 
             //for (var index = 0; index < _movies.Length; ++index)
             //if (_movies[index]?.Id == id)
             //return _movies[index].Clone(); //clone because of ref type 
 
-            foreach (var movie in _movies)
-                if (movie?.Id == id)
-                    return movie.Clone(); //clone because of ref type 
+            //foreach (var movie in _movies)
+            //    if (movie?.Id == id)
+            //        return movie.Clone(); //clone because of ref type 
 
-            return null;
+            return GetCore(id);
         }
 
-        public Movie[] GetAll()
+        protected abstract Movie GetCore ( int id );
+
+        //public Movie[] GetAll()
+        //When method returns IEnuma
+        public IEnumerable<Movie> GetAll ()
         {
-       
-            var items = new Movie[_movies.Count];
+            return GetAllCore();
+            //var items  = new List<Movie>();
+
+            //When returning an array, clone it 
+            //var items = new Movie[_movies.Count];
             //for (var index = 0; index < _movies.Length; ++index)
             //    items[index] = _movies[index]?.Clone();
-            var index = 0;
-            foreach (var movie in _movies)
-                items[index++] = movie.Clone();
+            //var index = 0;
+
+            //foreach (var movie in _movies)
+            //{
+            //    //items[index++] = movie.Clone();
+            //    //items.Add(movie.Clone());
+            //    yield return movie.Clone();
+            //};
 
             //Empty array
             //new Movie[0];
 
-            return items;
+            //return items;
         }
 
+        protected abstract IEnumerable<Movie> GetAllCore ();
 
-        public void Remove (int id)
+        public void Remove ( int id )
         {
+            if (id <=0)
+                return;
+
+            RemoveCore(id);
             //enumarate array looking for match 
-            for (var index = 0; index < _movies.Count; ++index)
-                if (_movies[index]?.Id == id)
-                {
+            //for (var index = 0; index < _movies.Count; ++index)
+            //    if (_movies[index]?.Id == id)
+            //    {
 
-                    //_movies[index] = null;  
-                    _movies.RemoveAt(index);
-                    return;
-                }
+            //        //_movies[index] = null;  
+            //        _movies.RemoveAt(index);
+            //        return;
+            //    }
         }
 
-        public bool Update (int id, Movie movie, out string errorMessage)
+        protected abstract void RemoveCore ( int id );
+
+        public bool Update ( int id, Movie movie, out string errorMessage )
         {
-         
+
             //Validate movie
             if (movie == null)
             {
@@ -155,7 +123,7 @@ namespace MovieLibrary
             if (!new ObjectValidator().IsValid(movie, out errorMessage))
                 return false;
             //Movie must already exist 
-            var oldMovie = FindById(id);
+            var oldMovie = GetCore(id);
             if (oldMovie == null)
             {
                 errorMessage = "Movie does not exist";
@@ -170,40 +138,21 @@ namespace MovieLibrary
                 return false;
             };
 
+            UpdateCore(id, movie);
+
             //Copy
-            movie.CopyTo(oldMovie);
-            oldMovie.Id = id;
+            //movie.CopyTo(oldMovie);
+            //oldMovie.Id = id;
 
             errorMessage = null;
             return true;
         }
 
-        private Movie FindById ( int id )
-        {
-            //StringCompare
-            //ICompare<Task>
-            foreach (var movie in _movies)
-                if (movie.Id == id)
-                    return movie;
+        protected abstract void UpdateCore ( int id, Movie movie );
 
-            return null;
-        }
-        private Movie FindByTitle ( string title )
-        {
-            foreach (var movie in _movies)
-                if (String.Equals(movie.Title, title, StringComparison.OrdinalIgnoreCase))
-                    return movie;
+        protected abstract Movie FindByTitle ( string title );
+       
 
-            return null;
-        }
-
-        private int _id = 1;
-
-        //Systems.Collectoins.Generic  go to for data structures outside of list
-        //private Movie[] _movies = new Movie[100]
-        private List<Movie> _movies = new List<Movie>();
-        //List<string>;
-        //List<int>;
 
     }
 }
