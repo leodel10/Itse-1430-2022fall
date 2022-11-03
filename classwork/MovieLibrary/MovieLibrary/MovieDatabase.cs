@@ -22,7 +22,7 @@ namespace MovieLibrary
             };
 
             //use IValidatableObject 
-            if (!new ObjectValidator().IsValid(movie, out errorMessage))
+            if (!ObjectValidator.IsValid(movie, out errorMessage))
                 return null;
 
 
@@ -120,7 +120,7 @@ namespace MovieLibrary
                 errorMessage = "Movie cannot be null";
                 return false;
             };
-            if (!new ObjectValidator().IsValid(movie, out errorMessage))
+            if (!ObjectValidator.IsValid(movie, out errorMessage))
                 return false;
             //Movie must already exist 
             var oldMovie = GetCore(id);

@@ -8,54 +8,6 @@ namespace MovieLibrary.Memory
 {
     public class MemoryMovieDatabase : MovieDatabase
     {
-        public MemoryMovieDatabase ()
-        {
-            //var movies = new Movie[3];
-
-            //Object initializer syntax
-            //new Movie("Jaws", "PG");
-            //var movie = new Movie();
-            //movie.Title = "Jaws";
-            //movie.Rating = "PG";
-            //movie.RunLegnth = 210;
-            //movie.ReleaseYear = 1977;
-            //movie.Description = "Shark eats people";
-            //movie.IsClassic = true;
-            //Add(movie, out var error);  //movies[0] for var
-            var movie = new Movie() {
-                Title = "Jaws",
-                Rating = "PG",
-                RunLegnth = 210,
-                ReleaseYear = 1977,
-                Description = "Shark eats people",
-                IsClassic = true,
-            };
-            Add(movie, out var error);
-
-            movie = new Movie() {
-                Title = "Jaws 2",
-                Rating = "PG-13",
-                RunLegnth = 220,
-                ReleaseYear = 1985,
-                Description = "Shark eats people...again",
-            };
-            Add(movie, out error);
-
-            movie = new Movie() {
-                Title = "Ice Age",
-                Rating = "G",
-                RunLegnth = 210,
-                ReleaseYear = 2002,
-                Description = "Ice age happens",
-                IsClassic = true,
-            };
-            Add(movie, out error);
-
-
-
-
-        }
-
         protected override Movie AddCore ( Movie movie)
         {
             //ARRAY

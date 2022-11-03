@@ -50,18 +50,54 @@ namespace MovieLibrary.WinHost
         protected override void OnLoad ( EventArgs e)
         {
             base.OnLoad ( e );  
-            UpdateUI();
+
+            UpdateUI(true);
         }
-        private void UpdateUI()
+
+        private void UpdateUI ()
         {
+            UpdateUI(false);
+        }
+
+        private void UpdateUI( bool initialLoad)
+        {
+            
             //Get movies 
             var movies = _movies.GetAll();
 
-            _lstMovies.Items.Clear();
-            //_lstMovies.Items.AddRange(movies);
-            foreach(var movie in movies)
-                _lstMovies.Items.Add(movie);
+            //Extension methods - static methos on static classes 
+            //1. Expose a static method as an instance methos for discoverability 
+            //2. Extension methos are called like istance methods (on an instance)
+            //3. Compiler rewrites cofe to call static methos on static class
+            //Enumerable.Count(movies) == movies.Count() same as
+            
+            if (initialLoad &&
+                //movies.Count() == 0)
+               //movies.FirstOrDefault() == null)
+               movies.Any())
+                
+            {
+                if (Confirm("Do you want to seed some movies?" , "Database empty"))
+                {
+                    //SeedMovieDatabase.Seed(_movies);
+                    _movies.Seed();
+                    movies = _movies.GetAll();
+                };
+            };
 
+            _lstMovies.Items.Clear();
+
+            //order movies ny title then by release year 
+            var items = movies.OrderBy(OrderByTitle)
+                           .ThenBy(OrderByReleaseYear)
+                           .ToArray();
+            //movies = movies.ThenBy();
+
+            //use enumarable 
+            //_lstMovies.Items.AddRange(Enumerable.ToArray(movies));
+            _lstMovies.Items.AddRange(items);
+            //foreach(var movie in movies)
+            //    _lstMovies.Items.Add(movie);
 
             //_lstMovies.Items.Clear();
             //if (_movie != null)
@@ -70,8 +106,20 @@ namespace MovieLibrary.WinHost
             //};
         }
 
+        private string OrderByTitle ( Movie movie)
+        {
+            return movie.Title;
+        }
+        private int OrderByReleaseYear ( Movie movie)
+        {
+            return movie.ReleaseYear;
+        }
+
         private Movie GetSelectedMovie()
         {
+           
+            //IEnumerable<Movie> temp = _lstMovies.SelectedItems.OfType<Movie>();
+
             return _lstMovies.SelectedItem as Movie;
         }
 

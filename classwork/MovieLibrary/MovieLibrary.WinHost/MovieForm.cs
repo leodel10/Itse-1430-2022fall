@@ -57,8 +57,9 @@ namespace MovieLibrary.WinHost
             movie.RunLegnth = GetInt32(_txtRunLegnth);
             movie.ReleaseYear = GetInt32(_txtReleaseYear);
 
-            if (!new ObjectValidator().IsValid(movie, out var error))
-            {
+           // if (!new ObjectValidator().IsValid(movie, out var error))
+                if (!ObjectValidator.IsValid(movie, out var error))
+                {
                 DisplayError(error, "Save");
                 return;
             };
@@ -78,6 +79,7 @@ namespace MovieLibrary.WinHost
 
         private int GetInt32 (TextBox control)
         {
+            
             if (Int32.TryParse(control.Text, out var result))
                 return result;
 
